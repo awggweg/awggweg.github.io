@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>路由协议--数据报在路由器之间的传输路径规则 | 飲雷室</title><meta name="author" content="飲雷室主人,15680317545@163.com"><meta name="copyright" content="飲雷室主人"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述数据在路由器之间传输称为IP数据包报，该传输过程由网络层负责。路由协议规定了数据包路由转发的线路，路由协议主要有RIP和OSPF。 RIPRIP的距离RIP使用跳数作为度量来衡量到达目的网络的距离，即路由器经过一次转发就可到达的直联网络的距离为1，到非直连网络时，经过一个路由器转发距离就将加一。当距离等于16时就相当于不可达，无法传输到目的网络。 RIP基本工作原理在由多个路由器组成的自治系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由协议--数据报在路由器之间的传输路径规则">
+<meta property="og:url" content="https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/index.html">
+<meta property="og:site_name" content="飲雷室">
+<meta property="og:description" content="概述数据在路由器之间传输称为IP数据包报，该传输过程由网络层负责。路由协议规定了数据包路由转发的线路，路由协议主要有RIP和OSPF。 RIPRIP的距离RIP使用跳数作为度量来衡量到达目的网络的距离，即路由器经过一次转发就可到达的直联网络的距离为1，到非直连网络时，经过一个路由器转发距离就将加一。当距离等于16时就相当于不可达，无法传输到目的网络。 RIP基本工作原理在由多个路由器组成的自治系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg">
+<meta property="article:published_time" content="2024-03-20T11:11:36.000Z">
+<meta property="article:modified_time" content="2024-03-26T14:04:11.563Z">
+<meta property="article:author" content="飲雷室主人">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg"><link rel="shortcut icon" href="/img/home.png"><link rel="canonical" href="https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 飲雷室主人","link":"链接: ","source":"来源: 飲雷室","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '路由协议--数据报在路由器之间的传输路径规则',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-26 14:04:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><link rel="stylesheet" href="/css/wave.css"><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="飲雷室" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="iron-container iron-circle"><div class="iron-box1 iron-circle iron-center"></div><div class="iron-box2 iron-circle iron-center"></div><div class="iron-box3 iron-circle iron-center"></div><div class="iron-box4 iron-circle iron-center"></div><div class="iron-box5 iron-circle iron-center"></div><div class="iron-box6 iron-circle"><div class="iron-coil" style="--i: 0"></div><div class="iron-coil" style="--i: 1"></div><div class="iron-coil" style="--i: 2"></div><div class="iron-coil" style="--i: 3"></div><div class="iron-coil" style="--i: 4"></div><div class="iron-coil" style="--i: 5"></div><div class="iron-coil" style="--i: 6"></div><div class="iron-coil" style="--i: 7"></div></div></div></div><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').style.transition = 'opacity 3s ease 0s'
+    document.getElementById('loading-box').style.opacity = '0'
+    setTimeout(function(){
+      document.getElementById('loading-box').classList.add("loaded")
+    }, 3000);
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').style.transition = '';
+    document.getElementById('loading-box').style.opacity = '1'
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 3000);</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/4.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/guitar/"><i class="fa-fw fas fa-music"></i><span> 吉他小屋</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="飲雷室"><img class="site-icon" src="/img/home.png"/><span class="site-name">飲雷室</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/guitar/"><i class="fa-fw fas fa-music"></i><span> 吉他小屋</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">路由协议--数据报在路由器之间的传输路径规则</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-20T11:11:36.000Z" title="发表于 2024-03-20 11:11:36">2024-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-26T14:04:11.563Z" title="更新于 2024-03-26 14:04:11">2024-03-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/">计算机网络学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="路由协议--数据报在路由器之间的传输路径规则"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数据在路由器之间传输称为IP数据包报，该传输过程由网络层负责。路由协议规定了数据包路由转发的线路，路由协议主要有RIP和OSPF。</p>
+<h1 id="RIP"><a href="#RIP" class="headerlink" title="RIP"></a>RIP</h1><h2 id="RIP的距离"><a href="#RIP的距离" class="headerlink" title="RIP的距离"></a>RIP的距离</h2><p>RIP使用跳数作为度量来衡量到达目的网络的距离，即路由器经过一次转发就可到达的直联网络的距离为1，到非直连网络时，经过一个路由器转发距离就将加一。当距离等于16时就相当于不可达，无法传输到目的网络。<img src="https://pic.imgdb.cn/item/65fa57649f345e8d031759e5.png"></p>
+<h2 id="RIP基本工作原理"><a href="#RIP基本工作原理" class="headerlink" title="RIP基本工作原理"></a>RIP基本工作原理</h2><p>在由多个路由器组成的自治系统中，相邻路由器之间周期性地交换和更新路由信息。经过若干次交换后，每个路由器知道本自治系统内各网络之间的最短距离和到达某目的网络下一跳的地址。</p>
+<h3 id="该工作原理下的问题"><a href="#该工作原理下的问题" class="headerlink" title="该工作原理下的问题"></a>该工作原理下的问题</h3><p>如果N1和R1路由器之间的网络出现问题，那么R1会得知到达N1网络的距离为16，即不可达。但是由于相邻路由器之间是周期性的交换路由信息，所以不可避免的会出现在R1向R2传送更新信息之前，R2先向R1传送路由信息。<img src="https://pic.imgdb.cn/item/65fa991e9f345e8d03331cc8.png"><br>这样R1和R2之间就会一直相互发送路由信息，并且发送一次，路由距离就会加一，一直加到16，才知道该N1网络不可达。<img src="https://pic.imgdb.cn/item/65fa99ec9f345e8d03365430.png"></p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1、如上所知，限制路由最大距离为15，16即不可达<br>2、上面例子中，当R1的路由表一更新之后就触发更新报文，这样就会极大减小邻居路由器错误信息的误导，而不是原来的周期发送<br>3、让路由器记录收到某路由信息的接口，当该接口接受的信息又要重新发送出去时，阻止该行为。</p>
+<h1 id="开放最短路径优先OSPF"><a href="#开放最短路径优先OSPF" class="headerlink" title="开放最短路径优先OSPF"></a>开放最短路径优先OSPF</h1><p>OSPF是用于改进RIP而出现的。由上面可知，RIP协议下，每个路由器的路由信息记录着到达某一网络的距离和下一跳的路由器，当得到邻居路由更新后发现新路由信息距离更短就更新路由信息，基于整个路由网络而言是不全面的而且容易产生“谣言”。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><h3 id="明确邻居关系"><a href="#明确邻居关系" class="headerlink" title="明确邻居关系"></a>明确邻居关系</h3><p>OSPF相邻路由之间通过问候分组建立和维护邻居关系。例如R1的邻居表中有对邻居R2和R3的信息，记录有各自的死亡倒计时，倒计时结束之前收到邻居的问候信息，邻居关系继续，倒计时重新开始。倒计时到0仍然没有收到问候信息，就结束该邻居关系。</p>
+<h3 id="发送链路状态通告LSA"><a href="#发送链路状态通告LSA" class="headerlink" title="发送链路状态通告LSA"></a>发送链路状态通告LSA</h3><p>每个路由器都产生链路状态通过LSA，LSA包含：1、该路由器和直连网络之间的状态信息2、该路由器和邻居路由器的链路状态信息。LSA封装在链路状态更新分组LSU中，被发送到网络的每一个路由器中。</p>
+<h3 id="LSA集合成的LSDB"><a href="#LSA集合成的LSDB" class="headerlink" title="LSA集合成的LSDB"></a>LSA集合成的LSDB</h3><p>每个路由器都有一个链路状态数据库LSDB，用来存储LSA。经过发送LSA，每个路由器的LSDB记录了所有路由器的LSA，即知道他们的邻居信息。这样就可以构建出一个邻居信息网络拓扑。</p>
+<h3 id="构建最短路径"><a href="#构建最短路径" class="headerlink" title="构建最短路径"></a>构建最短路径</h3><p>通过算法计算出到达某网络或路由器的最短路径，构建各自的路由表。</p>
+<h2 id="不足和解决方法"><a href="#不足和解决方法" class="headerlink" title="不足和解决方法"></a>不足和解决方法</h2><p>由上面可知，一个区域中有很多路由器，那么路由器将两两互为邻居，这样就会产生很多的问候分组和更新分组。所以在一个区域中选择一个路由器为DR，一个路由器为BDR，所有的非DR&#x2F;BDR只和DR和BDR建立邻居关系，非DR&#x2F;BDR之间不进行联系。当DR出现问题时有BDR代替DR。<br>同时，在一个自治系统中划分为若干区域，区域之间的有区域边界路由器如R3，负责向0.0.0.0传送0.0.0.1的LSA，，同时又将0.0.0.0 0.0.0.2 0.0.0.3的LSA传送给0.0.0.1.<img src="https://pic.imgdb.cn/item/65fab2c29f345e8d039e7d3c.png"><br>这样一来，在一个庞大的网络，被划分为了若干区域，每个区域又选择一个BDR和DR，通信压力大大减小。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://langzzzblog.online">飲雷室主人</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/">https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://langzzzblog.online" target="_blank">飲雷室</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post_share"><div class="social-share" data-image="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/03/26/TCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%E5%92%8C%E8%BF%9E%E6%8E%A5%E9%87%8A%E6%94%BE/" title="TCP协议的连接建立和连接释放"><img class="cover" src="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">TCP协议的连接建立和连接释放</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/07/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/" title="可靠传输的三种实现机制"><img class="cover" src="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">可靠传输的三种实现机制</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/26/TCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%E5%92%8C%E8%BF%9E%E6%8E%A5%E9%87%8A%E6%94%BE/" title="TCP协议的连接建立和连接释放"><img class="cover" src="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-26</div><div class="title">TCP协议的连接建立和连接释放</div></div></a></div><div><a href="/2024/03/07/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/" title="可靠传输的三种实现机制"><img class="cover" src="https://s11.ax1x.com/2024/02/07/pF1ovmd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">可靠传输的三种实现机制</div></div></a></div><div><a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%80%E5%8D%95%E6%A6%82%E8%BF%B0/" title="计算机网络简单概述"><img class="cover" src="https://s11.ax1x.com/2024/02/07/pF1TCff.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-05</div><div class="title">计算机网络简单概述</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81OTQ3My8zNTkzNQ=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RIP"><span class="toc-number">2.</span> <span class="toc-text">RIP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RIP%E7%9A%84%E8%B7%9D%E7%A6%BB"><span class="toc-number">2.1.</span> <span class="toc-text">RIP的距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RIP%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">RIP基本工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%A5%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8B%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.1.</span> <span class="toc-text">该工作原理下的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.2.</span> <span class="toc-text">解决方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88OSPF"><span class="toc-number">3.</span> <span class="toc-text">开放最短路径优先OSPF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%8E%E7%A1%AE%E9%82%BB%E5%B1%85%E5%85%B3%E7%B3%BB"><span class="toc-number">3.1.1.</span> <span class="toc-text">明确邻居关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E9%80%9A%E5%91%8ALSA"><span class="toc-number">3.1.2.</span> <span class="toc-text">发送链路状态通告LSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSA%E9%9B%86%E5%90%88%E6%88%90%E7%9A%84LSDB"><span class="toc-number">3.1.3.</span> <span class="toc-text">LSA集合成的LSDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="toc-number">3.1.4.</span> <span class="toc-text">构建最短路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">不足和解决方法</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By 飲雷室主人</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div><a onclick="window.open('https://beian.miit.gov.cn/')">蜀ICP备2024052630号</a></div><div><a onclick="window.open('https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral')">本网站由<img src="/img/adpic.png" width="60" height="30" vertical-align="middle">提供CDN加速/云存储服务</a></div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(()=>{
+  const loadLivere = () => {
+    if (typeof LivereTower === 'object') window.LivereTower.init()
+    else {
+      (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    }
+  }
+
+  if ('Livere' === 'Livere' || !true) {
+    if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+    else loadLivere()
+  } else {
+    window.loadOtherComment = loadLivere
+  }
+})()</script></div><script src="/js/som.js"></script><div class="aplayer no-destroy" data-id="9229273835" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-listfolded="true" data-lrctype="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

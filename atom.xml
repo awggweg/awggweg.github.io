@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>飲雷室</title>
+  <icon>https://www.gravatar.com/avatar/41539be7a8f80b61080a3dd88d0863cb</icon>
+  <subtitle>欢迎回来</subtitle>
+  <link href="https://langzzzblog.online/atom.xml" rel="self"/>
+  
+  <link href="https://langzzzblog.online/"/>
+  <updated>2024-03-26T14:04:11.563Z</updated>
+  <id>https://langzzzblog.online/</id>
+  
+  <author>
+    <name>飲雷室主人</name>
+    <email>15680317545@163.com</email>
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TCP协议的连接建立和连接释放</title>
+    <link href="https://langzzzblog.online/2024/03/26/TCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%E5%92%8C%E8%BF%9E%E6%8E%A5%E9%87%8A%E6%94%BE/"/>
+    <id>https://langzzzblog.online/2024/03/26/TCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%E5%92%8C%E8%BF%9E%E6%8E%A5%E9%87%8A%E6%94%BE/</id>
+    <published>2024-03-26T20:59:03.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>TCP协议是运输层上的协议，负责对应用层的指令直接封装成TCP报文。同时UDP也是运输层上的协议，UDP提供向上不可靠传输服务，当出现数据丢失情况不予理会，适合像视频会议 电话通信这样的应用。而TCP则要进行三报文握手建立连接，四报文挥手断开连接，这样建立一个逻辑上的通信通道。</p><h1 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h1><h2 id="大致过程"><a href="#大致过程" class="headerlink" title="大致过程"></a>大致过程</h2><p>TCP服务器处于监听状态，TCP客户发送TCP连接请求，客户进入同步已发送状态，TCP服务器接收到并发送针对TCP连接请求的确认，服务器也进入同步已接受状态。客户接受到<br>服务器发送的连接请求确认，并再次向服务器发送一个普通的TCP确认报文段，并进入连接已建立状态，服务器接受到该TCP确认报文段后进入连接建立状态，至此连接建立完成。<br><img src="https://pic.imgdb.cn/item/6602ce369f345e8d0385ac1b.png"></p><h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>如果将三报文握手改为两报文握手会出现问题吗，即把最后一次普通的TCP确认报文段去掉。<br>假设采用两报文握手，客户先向服务器发送一个连接请求，该连接请求出现异常，经过很长时间才会被服务器接收到。但是客户端的连接请求长时间没有受到回复一定会超时重传，再次发送一个连接请求，然后这个连接请求被服务器正常接收，服务器发送请求的确认后进入连接建立，客户端受到确认后也进入连接建立。连接建立完成，通信，连接断开。如果此时第一个超时的连接请求被服务器接收到，那么服务器就会再次发送请求确认，<strong>并自发的进入了连接建立状态</strong>，但是客户端已经关闭进程。而服务器长时间等待客户端通信，必然消耗通信资源。<img src="https://pic.imgdb.cn/item/6602d1289f345e8d039d4a4b.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;p&gt;TCP协议是运输层上的协议，负责对应用层的指令直接封装成TCP报文。同时UDP也是运输层上的协议，UDP提供向上不可靠传输服务，当出现数据丢</summary>
+      
+    
+    
+    
+    <category term="计算机网络学习" scheme="https://langzzzblog.online/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机网络" scheme="https://langzzzblog.online/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>路由协议--数据报在路由器之间的传输路径规则</title>
+    <link href="https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/"/>
+    <id>https://langzzzblog.online/2024/03/20/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%99/</id>
+    <published>2024-03-20T11:11:36.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数据在路由器之间传输称为IP数据包报，该传输过程由网络层负责。路由协议规定了数据包路由转发的线路，路由协议主要有RIP和OSPF。</p><h1 id="RIP"><a href="#RIP" class="headerlink" title="RIP"></a>RIP</h1><h2 id="RIP的距离"><a href="#RIP的距离" class="headerlink" title="RIP的距离"></a>RIP的距离</h2><p>RIP使用跳数作为度量来衡量到达目的网络的距离，即路由器经过一次转发就可到达的直联网络的距离为1，到非直连网络时，经过一个路由器转发距离就将加一。当距离等于16时就相当于不可达，无法传输到目的网络。<img src="https://pic.imgdb.cn/item/65fa57649f345e8d031759e5.png"></p><h2 id="RIP基本工作原理"><a href="#RIP基本工作原理" class="headerlink" title="RIP基本工作原理"></a>RIP基本工作原理</h2><p>在由多个路由器组成的自治系统中，相邻路由器之间周期性地交换和更新路由信息。经过若干次交换后，每个路由器知道本自治系统内各网络之间的最短距离和到达某目的网络下一跳的地址。</p><h3 id="该工作原理下的问题"><a href="#该工作原理下的问题" class="headerlink" title="该工作原理下的问题"></a>该工作原理下的问题</h3><p>如果N1和R1路由器之间的网络出现问题，那么R1会得知到达N1网络的距离为16，即不可达。但是由于相邻路由器之间是周期性的交换路由信息，所以不可避免的会出现在R1向R2传送更新信息之前，R2先向R1传送路由信息。<img src="https://pic.imgdb.cn/item/65fa991e9f345e8d03331cc8.png"><br>这样R1和R2之间就会一直相互发送路由信息，并且发送一次，路由距离就会加一，一直加到16，才知道该N1网络不可达。<img src="https://pic.imgdb.cn/item/65fa99ec9f345e8d03365430.png"></p><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1、如上所知，限制路由最大距离为15，16即不可达<br>2、上面例子中，当R1的路由表一更新之后就触发更新报文，这样就会极大减小邻居路由器错误信息的误导，而不是原来的周期发送<br>3、让路由器记录收到某路由信息的接口，当该接口接受的信息又要重新发送出去时，阻止该行为。</p><h1 id="开放最短路径优先OSPF"><a href="#开放最短路径优先OSPF" class="headerlink" title="开放最短路径优先OSPF"></a>开放最短路径优先OSPF</h1><p>OSPF是用于改进RIP而出现的。由上面可知，RIP协议下，每个路由器的路由信息记录着到达某一网络的距离和下一跳的路由器，当得到邻居路由更新后发现新路由信息距离更短就更新路由信息，基于整个路由网络而言是不全面的而且容易产生“谣言”。</p><h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><h3 id="明确邻居关系"><a href="#明确邻居关系" class="headerlink" title="明确邻居关系"></a>明确邻居关系</h3><p>OSPF相邻路由之间通过问候分组建立和维护邻居关系。例如R1的邻居表中有对邻居R2和R3的信息，记录有各自的死亡倒计时，倒计时结束之前收到邻居的问候信息，邻居关系继续，倒计时重新开始。倒计时到0仍然没有收到问候信息，就结束该邻居关系。</p><h3 id="发送链路状态通告LSA"><a href="#发送链路状态通告LSA" class="headerlink" title="发送链路状态通告LSA"></a>发送链路状态通告LSA</h3><p>每个路由器都产生链路状态通过LSA，LSA包含：1、该路由器和直连网络之间的状态信息2、该路由器和邻居路由器的链路状态信息。LSA封装在链路状态更新分组LSU中，被发送到网络的每一个路由器中。</p><h3 id="LSA集合成的LSDB"><a href="#LSA集合成的LSDB" class="headerlink" title="LSA集合成的LSDB"></a>LSA集合成的LSDB</h3><p>每个路由器都有一个链路状态数据库LSDB，用来存储LSA。经过发送LSA，每个路由器的LSDB记录了所有路由器的LSA，即知道他们的邻居信息。这样就可以构建出一个邻居信息网络拓扑。</p><h3 id="构建最短路径"><a href="#构建最短路径" class="headerlink" title="构建最短路径"></a>构建最短路径</h3><p>通过算法计算出到达某网络或路由器的最短路径，构建各自的路由表。</p><h2 id="不足和解决方法"><a href="#不足和解决方法" class="headerlink" title="不足和解决方法"></a>不足和解决方法</h2><p>由上面可知，一个区域中有很多路由器，那么路由器将两两互为邻居，这样就会产生很多的问候分组和更新分组。所以在一个区域中选择一个路由器为DR，一个路由器为BDR，所有的非DR&#x2F;BDR只和DR和BDR建立邻居关系，非DR&#x2F;BDR之间不进行联系。当DR出现问题时有BDR代替DR。<br>同时，在一个自治系统中划分为若干区域，区域之间的有区域边界路由器如R3，负责向0.0.0.0传送0.0.0.1的LSA，，同时又将0.0.0.0 0.0.0.2 0.0.0.3的LSA传送给0.0.0.1.<img src="https://pic.imgdb.cn/item/65fab2c29f345e8d039e7d3c.png"><br>这样一来，在一个庞大的网络，被划分为了若干区域，每个区域又选择一个BDR和DR，通信压力大大减小。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;p&gt;数据在路由器之间传输称为IP数据包报，该传输过程由网络层负责。路由协议规定了数据包路由转发的线路，路由协议主要有RIP和OSPF。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="计算机网络学习" scheme="https://langzzzblog.online/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机网络" scheme="https://langzzzblog.online/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>可靠传输的三种实现机制</title>
+    <link href="https://langzzzblog.online/2024/03/07/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/"/>
+    <id>https://langzzzblog.online/2024/03/07/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/</id>
+    <published>2024-03-07T19:52:41.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="可靠传输的概念"><a href="#可靠传输的概念" class="headerlink" title="可靠传输的概念"></a>可靠传输的概念</h1><p>以数据链路层为例子，在帧传送的过程中可能会出现误码，接收方可以通过差错检测技术（如循环冗余校验）来检查是否产生了误码。<br>当产生误码后，接收方仅仅丢弃有误码的帧，其他什么都不做，就是<strong>不可靠传输服务</strong>。想办法实现发送端发送什么，接收端就接收什么，就是<strong>可靠传输服务</strong>。</p><h1 id="实现可靠传输服务的三种机制"><a href="#实现可靠传输服务的三种机制" class="headerlink" title="实现可靠传输服务的三种机制"></a>实现可靠传输服务的三种机制</h1><h2 id="停止-等待协议SW"><a href="#停止-等待协议SW" class="headerlink" title="停止-等待协议SW"></a>停止-等待协议SW</h2><p>理想状态下，发送方发送数据分组，如果接收方检验没有误码，那么就向发送方发送确认分组（ACK），当发送方接收到确认分组后才能发送下一个数据分组，当某一个数据分组被接收方检测有误码时，接受方丢弃该分组，并向发送方发送否认数据分组（NAK），发送方知道分组出现错误，就重新向接收方发送该分组，所以这就要求发送方在受到确认分组之前需要保留该分组的缓存，在接受到确认分组后才将分组从缓存中删除。  </p><h3 id="数据分组丢失"><a href="#数据分组丢失" class="headerlink" title="数据分组丢失"></a>数据分组丢失</h3><p>如果接收方收不到数据分组，那么就不会发送ACK或NAK，这样发送方就会一直处于等待接收方的ACK或NAK的状态。<br>于是可以在发送方发送完一个数据分组时，启动一个超时计时器，超过一定时间仍然接收不到ACK或NAK，那么重新发送原来的数据分组，称为超时重传。  </p><h3 id="ACK丢失"><a href="#ACK丢失" class="headerlink" title="ACK丢失"></a>ACK丢失</h3><p>当接收方接收到数据分组并向发送方发送ACK时，如果ACK丢失了，那么发送方就会再次向接收方传送该数据分组，这样接收方就会重复接收。<br>于是需要为每个分组带上序号，举个例子，本次传输的序号为0，没有受到ACK，再次向接收方传送分组，接收方知道序号为0，和上次接收序号一样，丢弃分组，避免重复，再次向发送方发送ACK。下一次发送方发送数据分组序号就为1.并且可以得知要为分组带上序号，只需要一个比特即一位二进制即可。</p><h3 id="ACK重复"><a href="#ACK重复" class="headerlink" title="ACK重复"></a>ACK重复</h3><p>发送方发送数据分组data0，接收方收到并返回ACK，但是接收方接收到ACK时已经超出设置的重传时间，在接收到ACK之前已经再次向接收方发送数据分组data0，收到ACK后，发送data1,在收到data1的ACK之前一定会收到第二次data0的ACK，于是发送方会误以为这是DATA1的ACK。导致错误。<br>可以为ACK也添加序号，当接收方收到重复的ACK时忽略该ACK，这样就不会耽误接收DATA1的ACK。  </p><h2 id="回退N帧协议GBN"><a href="#回退N帧协议GBN" class="headerlink" title="回退N帧协议GBN"></a>回退N帧协议GBN</h2><p>由停止-等待协议工作原理知，该协议的信道利用率太低，于是有了回退N帧协议GBN。<br>采用三个比特给分组编序号，即序号为0-7，发送窗口的尺寸WT可以取值1-7，这里举例WT为5，WR的取值为1，即一次只能接收一个。<img src="https://pic.imgdb.cn/item/65efc1ad9f345e8d03967430.png">  </p><h3 id="无差错情况"><a href="#无差错情况" class="headerlink" title="无差错情况"></a>无差错情况</h3><p>发送方一次发送5个，接收方窗口接收同序号的分组，并向发送窗口返回相应序号的ACK，发送方接收一个ACK，窗口就相应向右移一位。当一次发送任务完成后，成了下面的情况：<img src="https://pic.imgdb.cn/item/65efc3669f345e8d039cf66e.png"></p><h3 id="累计确认"><a href="#累计确认" class="headerlink" title="累计确认"></a>累计确认</h3><p>接收方不一定对收到的数据逐个发送确认，可以在一次接收几个分组后，发送一个确认ACKn表示序号n及n之前的分组都已经确认接收。  </p><h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><p>1、减少接收方的传送频次，减轻压力2、减少发送方的超时重传，举例：当接收方一次接收01后，向发送方发送ACK1,再次接收到234后，再发送ACK4，这样即使ACK1在传送过程中丢失，也不会造成发送方的重传，因为发送方接收到ACK4后知道所以分组接收完毕。</p><h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><p>发送方第一次已经发送01234后，再次发送56701，但是如果第一个分组即5号丢失，那么剩下的分组也无法被接收方接收，因为接收方一次接收一个序号即5，这样接收方再次发送ACK4，发送方接受后知道传送错误，又再次发送56701,即使只有5传送错误，所有分组也需要全部重发，这就是回退N帧。</p><h3 id="为什么WT不能超过7"><a href="#为什么WT不能超过7" class="headerlink" title="为什么WT不能超过7"></a>为什么WT不能超过7</h3><p>设n为比特的位数，那么WT不能超过2^n-1，即在这里不能超过7，这里让WT等于8，那么发送窗口可以从0到7。<img src="https://pic.imgdb.cn/item/65f049389f345e8d03eb7d40.png"><br>首先，发送方发送0到7，接收方接受并返回ACK7，如果ACK7在传输过程中丢失，那么发送方计时器超时重发，再次发送原来的0到7，但是这时的接收方的接受窗口已经为下一个0了，这样就会重复接受原来的数据分组。</p><h2 id="选择重传协议SR"><a href="#选择重传协议SR" class="headerlink" title="选择重传协议SR"></a>选择重传协议SR</h2><p>上面协议中接受窗口的大小都只为1，导致接受方只能按序接受到达的数据分组。但是由回退N帧可知当只有一个数据分组出现误码时，也会导致接受方无法接受，那么所有数据分组都会重新传输，浪费通信资源。<br>为进一步提高性能，设法只重传出现误码的数据分组。接受窗口的尺寸将大于一，以便接受方先接受失序到达但无误码并且序号落在接受窗口范围的数据分组，等到所缺分组收齐后，再一并上交到上一层。这就是选择重传协议SR。</p><h3 id="无差错情况-1"><a href="#无差错情况-1" class="headerlink" title="无差错情况"></a>无差错情况</h3><p>此处WT&#x3D;WR&#x3D;4。<img src="https://pic.imgdb.cn/item/65f04cc19f345e8d03fea30b.png"><br>简单举例：发送方发送0123，23先到达并被接受，但是由于0号未被接受，接受窗口不移动，这时0到达，接受窗口移动一位，1到达，这时接受窗口可移动3位，到达4567.接受窗口一个序号接受一个分组，就发送该序号的确认接受，而不是之前的累计接受。若发送发某个序号超时没接受到确认，则只重发该序号的分组。</p><h3 id="发送方接受方尺寸超出情况"><a href="#发送方接受方尺寸超出情况" class="headerlink" title="发送方接受方尺寸超出情况"></a>发送方接受方尺寸超出情况</h3><p><img src="https://pic.imgdb.cn/item/65f0515d9f345e8d031a6dcf.png"></p><h4 id="发送方超过尺寸"><a href="#发送方超过尺寸" class="headerlink" title="发送方超过尺寸"></a>发送方超过尺寸</h4><p>发送方尺寸超过，会导致接收方无法分辨新旧分组。这里发送方不能超过4，让WT&#x3D;5。发送方发送01234，接受方接受并返回01234的ACK，其中0的ACK丢失，于是0重传分组，但是这时的接受窗口已经移动到56701，这样传来的0分组就会被这时的0接受，但是该分组之前已经接受过，属于重复接受。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;可靠传输的概念&quot;&gt;&lt;a href=&quot;#可靠传输的概念&quot; class=&quot;headerlink&quot; title=&quot;可靠传输的概念&quot;&gt;&lt;/a&gt;可靠传输的概念&lt;/h1&gt;&lt;p&gt;以数据链路层为例子，在帧传送的过程中可能会出现误码，接收方可以通过差错检测技术（如循环冗余校验）来检</summary>
+      
+    
+    
+    
+    <category term="计算机网络学习" scheme="https://langzzzblog.online/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机网络" scheme="https://langzzzblog.online/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络简单概述</title>
+    <link href="https://langzzzblog.online/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%80%E5%8D%95%E6%A6%82%E8%BF%B0/"/>
+    <id>https://langzzzblog.online/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%80%E5%8D%95%E6%A6%82%E8%BF%B0/</id>
+    <published>2024-03-05T16:21:28.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="本文目的"><a href="#本文目的" class="headerlink" title="本文目的"></a>本文目的</h1><p>关于计算机网络的课程，向来是抛出一大堆概念，比较抽象难懂，本文旨在从抽象的概念脱离出来，以一个小白的视角具体说说当访问一个网址时具体发生了哪些事情（实际情况肯定要复杂许多），从而对计算机网络和各种概念有一个大概的了解。</p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>举个例子，当我们在浏览器中输入百度的网址 <a href="http://www.baidu.com/">www.baidu.com</a> 时，网址首先会被dns服务器解析成ip地址，当得到了ip地址后，再向该ip地址发出请求获得百度首页内容。</p><h2 id="dns解析"><a href="#dns解析" class="headerlink" title="dns解析"></a>dns解析</h2><h3 id="计算机中"><a href="#计算机中" class="headerlink" title="计算机中"></a>计算机中</h3><p>当浏览器中输入 <a href="http://www.baidu.com/">www.baidu.com</a> 后，浏览器会先查看浏览器中的缓存记录，看看是否有该网址的历史记录，没有找到就会到本地hosts文件寻找是否存在该网址和对应ip地址的映射，如果还没有找到就会访问计算机中的默认dns服务器如8.8.8.8，在计算机网络五层体系中的应用层生成 <a href="http://www.baidu.com/">www.baidu.com</a> 的ip地址的请求，然后数据向下一层传输层封装，为数据添加源端口和目标端口信息，源端口是浏览器处理该事件打开的一个端口，目标端口则是目标服务器中负责该服务专门的端口，比如获得dns解析服务的就是53端口，在这里举例为源端口404，目标端口53，然后向下一层网络层传输，网络层为数据添加源ip和目标ip，源ip即计算机在局域网的子网ip地址192.168.1.10，目标ip是dns服务器地址8.8.8.8，当发现该地址8.8.8.8不属于该局域网中的地址，就会发送给网关（在wifi环境中网关就是路由器），再向下一层数据链路层传输，为数据添加源mac地址和目标mac地址（mac地址可以理解成在局域网中各设备的交流地址），这里源mac地址为计算机的mac地址如AA，目标mac地址则是网关的mac地址如CC（设备之间应该是不能直接知道mac地址，一般是通过ip地址发送ARP请求得知目标设备的mac地址，并把该目标设备的ip地址和mac地址对应起来，记录到自己的ARP缓冲表中），再向下传输到物理层，通过网卡发出该数据包到交换机（路由器一般包含交换机设备，这里分离出来讲解），数据包从计算机进入了局域网环境。</p><h3 id="局域网中"><a href="#局域网中" class="headerlink" title="局域网中"></a>局域网中</h3><p>局域网交换机负责连接各种设备，通过mac地址沟通各设备，当他接收到计算机传来的数据包，将数据包向上解构到数据链路层，查看到目标mac地址为CC即路由器mac地址，将数据包转发到路由器中，路由器将数据包向上解构到链路层，发现目标mac地址为自己，就继续向上解构网络层知道目标ip地址8.8.8.8，就准备将数据包通过wan口传输到公网中的其他路由器。在传输到其他路由器之前，需要先NAT即网络地址转换，将源ip地址改为路由器的公网ip地址，将源端口改为分配的端口505，因为原来的源地址192.168.1.10是子网ip地址，只能在局域网内部使用。NAT时，会建造一个关系映射表，将源地址192.168.1.10 端口404和公网地址20.20.20.20 端口如505进行对应。这是在网络层进行的改动，然后再传输到数据链路层，将源mac地址改为DD，目的mac地址改为另一个路由器mac地址。</p><h3 id="公网中"><a href="#公网中" class="headerlink" title="公网中"></a>公网中</h3><p>然后数据包被传输到下一个路由器中，下一个路由器解析到数据链路层，将源mac改为自己，目的mac改为下一个路由器，就这样在路由器的接力下，最后一台路由器传输到dns服务器。dns服务器层层解构，到应用层返回百度的网址，下发到传输层源端口改为53，目标端口改为505，后面的过程和数据包被路由器传过来相似。最后数据包被传回到路由器中，由NAT映射表可以知道是局域网的哪个设备的哪个端口，这样就返回给了计算机，最后得到了ip地址。</p><h2 id="http请求"><a href="#http请求" class="headerlink" title="http请求"></a>http请求</h2><p>得到ip地址后，就可以再次进行http请求，即希望访问百度的web服务器获得页面内容，传输方法和dns解析一样，最后得到页面内容，经过浏览器渲染后即得到百度的界面。</p><h1 id="魔法原理简述"><a href="#魔法原理简述" class="headerlink" title="魔法原理简述"></a>魔法原理简述</h1><p>由此及彼，可以简单了解神秘力量的一点点工作原理和协议的绕过方法。</p><h2 id="dns污染"><a href="#dns污染" class="headerlink" title="dns污染"></a>dns污染</h2><p>当输入谷歌地址时同样需要先获得ip地址，再对ip发送请求，但是当数据包在公网中传送时，神秘可以层层解构到应用层，可以发现应用层里包含黑名单的ip地址，于是修改获得的ip地址，于是当数据包传送到计算机后访问一个错误的ip自然无法成功。</p><h2 id="tcp重置攻击"><a href="#tcp重置攻击" class="headerlink" title="tcp重置攻击"></a>tcp重置攻击</h2><p>如果只是dns污染，由上文可知，其实只用知道谷歌的ip地址，将域名和ip的映射关系添加到windows系统的hosts文件中，这样就可以直接访问正确的ip地址，但是当数据包经过神秘时，会解构到应用层知道意图，就可以消灭该数据包，伪造一个返回的数据包，从而建立连接失败。<br>可以理解成：想象一下小明和小红在谈恋爱，但因为距离较远，他们只能通过小纸条传递信息。后来，小刚吃醋了，偷偷给小红写了一封分手信，署名是小明的名字。小红以为是真的，就熄灭了心中的激情。然后，真正的小明又发来了一封信，但小红已经不相信了，直接回复：“分手，滚”。最终，小明和小刚过上了幸福的生活。</p><h2 id="shadowsocks原理简述"><a href="#shadowsocks原理简述" class="headerlink" title="shadowsocks原理简述"></a>shadowsocks原理简述</h2><p>打开工具后，谷歌请求会传输到工具监听端口，在这里对应用层内容加密，于是将数据包传送给代理服务器，当然代理服务器肯定在国外，他也应该不会在黑名单中，于是请求通过，在代理服务器中帮助完成了内容的访问获得了页面内容，于是又进行加密，再将数据包传输给计算机的监听端口，再传送到浏览器。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;本文目的&quot;&gt;&lt;a href=&quot;#本文目的&quot; class=&quot;headerlink&quot; title=&quot;本文目的&quot;&gt;&lt;/a&gt;本文目的&lt;/h1&gt;&lt;p&gt;关于计算机网络的课程，向来是抛出一大堆概念，比较抽象难懂，本文旨在从抽象的概念脱离出来，以一个小白的视角具体说说当访问一个网</summary>
+      
+    
+    
+    
+    <category term="计算机网络学习" scheme="https://langzzzblog.online/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机网络" scheme="https://langzzzblog.online/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centos系统设置静态ip</title>
+    <link href="https://langzzzblog.online/2024/02/13/centos%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
+    <id>https://langzzzblog.online/2024/02/13/centos%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/</id>
+    <published>2024-02-13T17:44:42.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>学习linux操作系统，需要通过虚拟机平台vmware workstation创建虚拟机，在虚拟机安装linux发行版本centos，但是希望通过finalshell运行centos中的终端命令，而不是在虚拟机中运行。所以需要为该虚拟机设置静态ip，从而可以通过finalshell连接主机和虚拟机。</p><h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>打开虚拟网络编辑器，里面有vmnet1和vmnet8两个选项，vmnet1和vmnet8分别是本机中的两张虚拟网卡，他们在安装虚拟机平台时被自动安装，vmnet1大致就是虚拟机只能和本机进行通信，无法访问外部网络，vmnet8可以让虚拟机和本机通信，也可以让虚拟机和外部网络进行通信，但是外部网络无法访问虚拟机。vmnet0即桥接模式，无法在网络适配器中找到该网卡，因为他不是虚拟网卡，而是桥接到本机物理的无线网卡或以太网卡，该模式下虚拟机可以和本机通信 和外部网络通信，同时还可以被外部网络访问，就好像虚拟机是连接在局域网中的一台真的设备一样。  </p><p>该处设置的ip是子网ip，是连接同一wifi不同设备相互通信的地址，而公网ip是该wifi环境下共享的ip地址，是供给外部网络访问的地址。  </p><p>举例选择的是vmnet0,但是如果只是想通过finalshell连接主机和虚拟机的话，vmnet8更好。因为使用vmnet8，虚拟机和主机通过nat联系，虚拟机访问外部网络也是先将地址更改为主机地址，在路由到外部网络，收到回应也是先路由到主机地址，在由nat转换为虚拟机地址。而使用vmnet0，虚拟机相当于单独于主机的真实机子了，和主机联系也是通过局域网联系，这就要求他们在一个网段中，但是一般连接wifi主机得到ip都是动态分发，当我们每次断开wifi在连接都有可能得到一个不同网段的ip，所以又需要重新设置，而为主机设置静态ip又是很麻烦的事情，可能面临ip地址冲突、受到放地址私设的限制，很可能设置后无法访问网络，所以使用vmnet8是上上之选。</p><h2 id="设置虚拟网络编辑器"><a href="#设置虚拟网络编辑器" class="headerlink" title="设置虚拟网络编辑器"></a>设置虚拟网络编辑器</h2><p>我选择桥接模式。在编辑-》虚拟网络编辑器-》点击更改设置-》选择桥接模式-》桥接至的后面是需要连接的本机物理网卡，可以在控制面板-》网络和internet-》网络连接中的wlan最下方找到（如果连接的是无线网络，那么就是wlan下方显示的网卡），比如我的是intel(R) wi-fi 6 ax201 160mhz，网卡格式和此应该类似</p><h2 id="查看本机网络信息"><a href="#查看本机网络信息" class="headerlink" title="查看本机网络信息"></a>查看本机网络信息</h2><p>在本机终端中输入<code>ipconfig /all</code>，找到无线局域网适配器wlan（如果连接的wifi的话），记录其中的ipv4地址 子网掩码 默认网关 dns服务器</p><h2 id="配置centos"><a href="#配置centos" class="headerlink" title="配置centos"></a>配置centos</h2><p>这里我的系统是centos7,一般网络接口配置文件位于&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts中，文件名可能为ifcfg-eno16777736或其他，先用命令<code>cd /etc/sysconfig/network-scripts </code>进入该文件目录，查看类似名字的文件进入，找到格式类似于</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=static #修改成static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">NAME=eno16777736</span><br><span class="line">UUID=bf5337ab-c044-4af7-9143-12da0d493b89</span><br><span class="line">DEVICE=eno16777736</span><br><span class="line">ONBOOT=yes #修改成yes</span><br><span class="line">PEERDNS=yes</span><br><span class="line">PEERROUTES=yes</span><br><span class="line">IPV6_PEERDNS=yes</span><br><span class="line">IPV6_PEERROUTES=yes</span><br><span class="line">IPADDR=192.168.0.200 # 自定义虚拟机的ip地址（主机是192.168.0.107），必须与主机在同一网段</span><br><span class="line">NETMASK=255.255.255.0 #设置子网掩码，跟宿主一样</span><br><span class="line">GATEWAY=192.168.0.1 #默认网关，跟宿主一样</span><br><span class="line">DNS1=192.168.0.1 #DNS，跟宿主一样</span><br></pre></td></tr></table></figure><p>的文件，改动要求遵照上面说明。需要说明的是：自定义的虚拟机ip地址必须与主机在同一网段，确定两个子网ip地址是否位于同一个网段的方法就是：将两个ip分别转化为二进制，然后和主机配置查到的子网掩码的二进制进行and运算，举个例子，我的本机子网掩码为255.255.255.0，转化为二进制11111111.11111111.11111111.0，所以将他和任何ip地址进行and运算，前三组都是ip地址本身，最后一组就一定为0，所以在这个子网掩码的情况下，只要两个ip地址的前三组相同，那么这两个ip地址就在同一个局域网中，即同一个网段。配置完成后，重启网络使用命令<code>service network restart</code></p><h2 id="检测ip设置"><a href="#检测ip设置" class="headerlink" title="检测ip设置"></a>检测ip设置</h2><p>在虚拟机终端中使用命令ping+自身ip或公网ip（如 <a href="http://www.baidu.com/">www.baidu.com</a> ），查看访问情况，再在宿主机终端使用命令ping+虚拟机ip查看访问情况</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h1&gt;&lt;p&gt;学习linux操作系统，需要通过虚拟机平台vmware workstation创建虚拟机，在虚拟机安装linux发行版本centos，但是希</summary>
+      
+    
+    
+    
+    <category term="linux系统学习" scheme="https://langzzzblog.online/categories/linux%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="linux" scheme="https://langzzzblog.online/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建博客经验分享</title>
+    <link href="https://langzzzblog.online/2024/02/03/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
+    <id>https://langzzzblog.online/2024/02/03/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</id>
+    <published>2024-02-03T15:11:58.000Z</published>
+    <updated>2024-03-26T14:04:11.563Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="博客搭建及优化经验分享"><a href="#博客搭建及优化经验分享" class="headerlink" title="博客搭建及优化经验分享"></a>博客搭建及优化经验分享</h1><h2 id="为什么搭建博客"><a href="#为什么搭建博客" class="headerlink" title="为什么搭建博客"></a>为什么搭建博客</h2><ul><li>写博客时有些东西可能自己都不知道😋，于是只能推动自己去认真学习新东西</li><li>通过博客的使用开始熟悉git github，简单命令行使用以及熟悉一点点前端三件套js css html和服务器知识</li><li>也许单纯就是想有个能够自己布置主题的小站</li><li>为了一点点新的体验，比如我之前一直都是看的别人的技术文，今天自己也能写写水文了（想想心里还有点小激动。。。）</li></ul><h2 id="搭建篇"><a href="#搭建篇" class="headerlink" title="搭建篇"></a>搭建篇</h2><p><strong>搭建篇经验分享基于下一段落的视频，后面学习主题配置是另一个视频，如果想从搭建到配置不更换视频的建议观看<a href="https://www.bilibili.com/videoBV1Ko4y1S7mv/?spm_id_from=333.337.search-card.all.click">视频</a>.</strong></p><p>对于具体搭建过程，有讲的很细致的视频说明（点击<a href="https://www.bilibili.com/video/BV1Rt4y1k7it/?spm_id_from=333.337.search-card.all.click">这里</a>跳转），我就不作赘述了，只是对里面的内容进行一些补充说明以及遇到的坑😤。 </p><p>整个过程通过在本地编译生成静态页面文件，然后部署到github固定的仓库中，github pages提供托管静态页面的服务，所以我们部署在这个仓库上的页面能够通过访问user.github.io看见，而不需要自己租服务器啥的  </p><p>1.关于几个工具nodejs git hexo 以及npm之间的关系，hexo就是我们要用到的博客框架，他是基于nodejs构建的，与不用框架相比，hexo可以帮我们快速的创建、部署和维护博客省去了复杂的服务器配置，同时由于存在大量用户，有很多基于hexo写好的主题，我们只需要直接选好主题就可以拥有漂亮的博客页面。git是负责项目的传送，比如可以将项目传送到github gitee和其他支持git的托管平台。npm是一个包管理器，后续我们需要在命令行中运行npm相关的命令来下载基于hexo的各种插件来实现对应的功能（不过由于他的服务器位于国外，下载速度极慢，往往是将npm替换成cnpm通过国内的淘宝镜像进行下载，视频内有设置的详细方法）  </p><p>2.视频的顺序有问题，从设置淘宝镜像那个视频开始顺序有问题，发现衔接对不上跳过即可  </p><p>3.在通过ssh和github服务器进行连接时，一直提示端口22报错，建议将错误提示信息粘贴到浏览器搜索之后，换一个端口可以解决（时间久远，具体哪个忘了）  </p><p>4.博客配置文件_config.yml中deploy中的branch应该改成main，因为自从2020年由于master被认为和奴隶制有关，所以github默认分支由master改成了main  </p><p>5.仓库名字一定要是username. github.io（username替换为自己的用户名），不然通过网址访问不到  </p><p>最后，非常建议出现了错误提示可以先将提示复制到浏览器搜索，可能你会惊奇的发现之前也有一个和你相同问题的人（会产生一种英雄惜英雄的感觉😭）然后学习前人的解决方法</p><h2 id="主题配置篇"><a href="#主题配置篇" class="headerlink" title="主题配置篇"></a>主题配置篇</h2><p>到这里你已经有一个自己的博客，如果你还想对主题有仔细的配置乃至加上一些自己的改装可以观看此篇。但是注意：该篇使用的主题是butterfly，和上一篇不一样，因为butterfly是比较热门的主题，关于它还有专门的魔改分享网址，同时它还提供专门的讲解<a href="https://butterfly.js.org/link/">文档</a>，如果想观看视频，这里推荐大佬的视频（点击<a href="https://www.bilibili.com/video/BV1Ko4y1S7mv/?spm_id_from=333.337.search-card.all.click">这里</a>）</p><h2 id="自主魔改篇"><a href="#自主魔改篇" class="headerlink" title="自主魔改篇"></a>自主魔改篇</h2><p>这是基于butterfly的魔改分享<a href="https://butterfly.zhheo.com/create.html">网址</a>，在里面有几乎所有方向的魔改。这里我只分享一下我的魔改。</p><h3 id="一图流背景-随机背景"><a href="#一图流背景-随机背景" class="headerlink" title="一图流背景+随机背景"></a>一图流背景+随机背景</h3><p>一图流就是将每个页面的顶部图片和页脚透明，这样就是一张图覆盖全站的效果，关于一图流可以直接搜索“butterfly一图流”会有很多文档说明如何设置一图流。随机背景没怎么找到，所用主要说明一下随机背景。  </p><p>随机背景的功能是刷新一下页面，就从图片数组中选择一张作为背景图片，就像你可以看到的效果一样，如果点击另一个页面比如首页，背景图片不会改变，刷新的话背景图片就会改变（因为在butterfly主题配置文件中有一个pjax的功能，你可以手动控制开关，打开就意味着当你在网站内选择页面资源不会全部更新，比如背景图片就不会更新，从而使页面更流畅）  </p><p>在根目录下的source文件夹中新建一个js文件夹，在里面随机命名新建一个js文件，然后在文件里面写入：</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pic = [];</span><br><span class="line">    pic[<span class="number">0</span>] = <span class="string">&quot;/img/12.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">2</span>] = <span class="string">&quot;/img/cover.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">3</span>] = <span class="string">&quot;/img/10.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">4</span>] = <span class="string">&quot;/img/13.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">5</span>] = <span class="string">&quot;/img/14.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">1</span>] = <span class="string">&quot;/img/9.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">6</span>] = <span class="string">&quot;/img/12.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">7</span>] = <span class="string">&quot;/img/2.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">8</span>] = <span class="string">&quot;/img/3.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">9</span>] = <span class="string">&quot;/img/6.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">10</span>] = <span class="string">&quot;/img/5.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">11</span>] = <span class="string">&quot;/img/18.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">12</span>] = <span class="string">&quot;/img/10.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">13</span>] = <span class="string">&quot;/img/2.webp&quot;</span>;</span><br><span class="line">    pic[<span class="number">14</span>] = <span class="string">&quot;/img/cover.webp&quot;</span>;</span><br><span class="line">    <span class="keyword">var</span> randomBgIndex = <span class="title class_">Math</span>.<span class="title function_">round</span>( <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">14</span> );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出随机的背景图</span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">&#x27;&lt;style&gt;body&#123;background:url(&#x27;</span> + pic[randomBgIndex] + <span class="string">&#x27;) no-repeat 50% 0; background-size: cover; background-attachment: fixed;&#125;&lt;/style&gt;&#x27;</span>);</span><br></pre></td></tr></table></figure><p>其中的pic图片数组记得改成自己的路径，同时因为生成的随机数randomBgIndex取值为0到14（*后面的数字），比如我的数组最大序号为14，那么我需要将math.random()*后面改成14.  </p><p>然后在主题配置文件中搜索inject（这里支持自由向页面代码插入自定义的js css文件），在bottom下面插入：<code>- &lt;script src=&quot;/js/name.js&quot;&gt;&lt;/script&gt;</code>，其中name是你自己为js文件取的名字</p><h3 id="加载动画"><a href="#加载动画" class="headerlink" title="加载动画"></a>加载动画</h3><p>效果刷新可见，就是一个旋转的像钢铁侠反应炉样的动画，其中反应炉的效果就是原主题中的盒子动画替换得到，后面的加载完成后逐渐消失的效果需要另外的代码实现。</p><h4 id="反应炉"><a href="#反应炉" class="headerlink" title="反应炉"></a>反应炉</h4><p>这里有大佬的详细<a href="https://akilar.top/posts/3d221bf2/">教程</a>.但是注意：由于hexo版本的更新，教程中的loading.pug应该是现版本的fullpage-loading.pug.对于代码修改可以先保留原代码，不行再改回来。</p><h4 id="加载动画逐渐消失"><a href="#加载动画逐渐消失" class="headerlink" title="加载动画逐渐消失"></a>加载动画逐渐消失</h4><p>在themes&#x2F;butterfly&#x2F;layout&#x2F;includes&#x2F;loading&#x2F;fullpage-loading.pug中将后半段代码（script开头）替换为下面的代码：</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">script</span>(<span class="keyword">async</span>).</span><br><span class="line">  <span class="keyword">var</span> preloader = &#123;</span><br><span class="line">    <span class="attr">endLoading</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">style</span>.<span class="property">overflow</span> = <span class="string">&#x27;auto&#x27;</span>;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">style</span>.<span class="property">transition</span> = <span class="string">&#x27;opacity 3s ease 0s&#x27;</span></span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">style</span>.<span class="property">opacity</span> = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&quot;loaded&quot;</span>)</span><br><span class="line">      &#125;, <span class="number">3000</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">initLoading</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">style</span>.<span class="property">overflow</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">style</span>.<span class="property">transition</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">style</span>.<span class="property">opacity</span> = <span class="string">&#x27;1&#x27;</span></span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;loading-box&#x27;</span>).<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&quot;loaded&quot;</span>)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>,<span class="function">()=&gt;</span> &#123;preloader.<span class="title function_">endLoading</span>()&#125;)</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;preloader.<span class="title function_">endLoading</span>();&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure><p>建议打开主题配置文件中的pjax，效果更加丝滑rs  </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;博客搭建及优化经验分享&quot;&gt;&lt;a href=&quot;#博客搭建及优化经验分享&quot; class=&quot;headerlink&quot; title=&quot;博客搭建及优化经验分享&quot;&gt;&lt;/a&gt;博客搭建及优化经验分享&lt;/h1&gt;&lt;h2 id=&quot;为什么搭建博客&quot;&gt;&lt;a href=&quot;#为什么搭建博客&quot; c</summary>
+      
+    
+    
+    
+    <category term="博客优化" scheme="https://langzzzblog.online/categories/%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96/"/>
+    
+    
+    <category term="web" scheme="https://langzzzblog.online/tags/web/"/>
+    
+  </entry>
+  
+</feed>
